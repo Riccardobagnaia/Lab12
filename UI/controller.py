@@ -12,12 +12,25 @@ class Controller:
         self._listCountry = []
 
     def fillDD(self):
-        pass
+        retailer = self._model._all_Retailer
+        for ret in retailer:
+            if ret.Country not in self._listCountry:
+                self._listCountry.append(ret.Country)
+        for nazione in self._listCountry:
+            self._view.ddcountry.options.append(ft.dropdown.Option(f"{nazione}"))
+        self._view.update_page()
 
 
     def handle_graph(self, e):
-        pass
-
+        idMap = self._model.get_IdMap()
+        anno = self._view.ddyear.value
+        nazione = self._view.ddcountry.value
+        try:
+            int_anno = int(anno)
+        except ValueError:
+            self._view.txt_result.controls.append(ft.Text("inserire l'anno"))
+        self._model.creaGrafo(nazione,int_anno)
+        self._view.update_page()
 
 
     def handle_volume(self, e):
