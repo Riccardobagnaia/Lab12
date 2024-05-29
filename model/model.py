@@ -20,9 +20,19 @@ class Model:
                     peso = DAO.getAllEdges(anno,r1,r2)[0]
                     if peso > 0:
                         self._grafo.add_edge(r1,r2,weight=peso)
-        print(self._grafo)
+        return self._grafo
 
-
-
-    def get_IdMap(self):
-        return self._idMap
+    def analizza(self):
+        grafo = self._grafo
+        diz = {}
+        for nodo1 in grafo.nodes:
+            somma = 0
+            for nodo2 in grafo.nodes:
+                if nodo1 != nodo2:
+                    if grafo.has_edge(nodo1,nodo2):
+                        peso = grafo[nodo1][nodo2]["weight"]
+                        somma += peso
+            if nodo1 not in diz:
+                diz[nodo1]=somma
+        diz_ordinato = dict(sorted(diz.items(), key=lambda item: item[1], reverse=True))
+        return diz_ordinato

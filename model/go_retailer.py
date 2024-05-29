@@ -9,7 +9,7 @@ class Go_retailer:
     Country : str
 
     def __str__(self):
-        return f"{self.Retailer_code} - {self.Country}"
+        return f"{self.Retailer_code} - {self.Retailer_name}"
 
     def __hash__(self):
         return hash(self.Retailer_code)

@@ -22,20 +22,23 @@ class Controller:
 
 
     def handle_graph(self, e):
-        idMap = self._model.get_IdMap()
         anno = self._view.ddyear.value
         nazione = self._view.ddcountry.value
         try:
             int_anno = int(anno)
         except ValueError:
             self._view.txt_result.controls.append(ft.Text("inserire l'anno"))
-        self._model.creaGrafo(nazione,int_anno)
+
+        grafo = self._model.creaGrafo(nazione,int_anno)
+        self._view.txt_result.controls.append(ft.Text(grafo))
         self._view.update_page()
 
 
     def handle_volume(self, e):
-        pass
-
+        dizionario = self._model.analizza()
+        for chiave in dizionario:
+            self._view.txt_result.controls.append(ft.Text(f"{chiave.Retailer_name} --> {dizionario[chiave]}"))
+        self._view.update_page()
 
     def handle_path(self, e):
         pass
